@@ -1,5 +1,5 @@
 # PetStore_Postman_API_Testing
-## API testing project using Postman for the petstore.swagger.io
+API testing project using Postman for the petstore.swagger.io
 ### Project Overview
 We've developed a comprehensive API manual for testing the functionalities of a fictional online store using Postman and Newman.
 ### API Manual
