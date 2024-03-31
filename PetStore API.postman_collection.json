@@ -1,0 +1,746 @@
+{
+	"info": {
+		"_postman_id": "fed79b40-ab8a-4cd4-b7b8-929ed090255e",
+		"name": "PetStore API",
+		"description": "StartFragmentPetstore.com is a unique marketplace where you can find one of a kind products to pamper your furry, finned, or feathered pet friend. EndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30169712"
+	},
+	"item": [
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "Add Pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"Pet ID\",jsonData.id);\r",
+									"pm.collectionVariables.set(\"upload image\",jsonData.photoUrls);\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\":320,\r\n  \"category\": {\r\n    \"id\":1,\r\n    \"name\": \"orange\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"C:\\\\Users\\\\CompuCloud\\\\Pictures\\\\4.png\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"elephant\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/pet",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"pet"
+							]
+						},
+						"description": "Add A new pet to the store"
+					},
+					"response": []
+				},
+				{
+					"name": "uploadimage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "server",
+								"value": "Jetty(9.2.9.v20150224)",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/CompuCloud/Pictures/0cfaa7a8-4644-4c75-9727-0a35714cd209.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Petstore}}/pet/{{Pet ID}}/uploadImage",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"pet",
+								"{{Pet ID}}",
+								"uploadImage"
+							]
+						},
+						"description": "uploads an image"
+					},
+					"response": []
+				},
+				{
+					"name": "update pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"Pet ID\",jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\":220,\r\n  \"category\": {\r\n    \"id\":1,\r\n    \"name\": \"gray\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"C:\\\\Users\\\\CompuCloud\\\\Pictures\\\\dog.jpg\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"cats\"\r\n    }\r\n  ],\r\n  \"status\": \"Pending\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/pet",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"pet"
+							]
+						},
+						"description": "Update an existing pet"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pet by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/pet/{{Pet ID}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"pet",
+								"{{Pet ID}}"
+							]
+						},
+						"description": "Find pet by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "Find Pets by Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{Petstore}}/pet/findByStatus?status=available",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"pet",
+								"findByStatus"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "available"
+								}
+							]
+						},
+						"description": "Finds Pets by Status"
+					},
+					"response": []
+				},
+				{
+					"name": "Find pets by Tags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/pet/findByTags?tags=cats",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"pet",
+								"findByTags"
+							],
+							"query": [
+								{
+									"key": "tags",
+									"value": "cats"
+								}
+							]
+						},
+						"description": "Finds Pets by Tags"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pet With Form",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/pet/{{Pet ID}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"pet",
+								"{{Pet ID}}"
+							]
+						},
+						"description": "Updates A pet in the store with form data"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Pet",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/pet/{{Pet ID}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"pet",
+								"{{Pet ID}}"
+							]
+						},
+						"description": "Deletes a Pet"
+					},
+					"response": []
+				}
+			],
+			"description": "Every thing about your Pets"
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Create Place Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 550,\r\n  \"petId\": 220,\r\n  \"quantity\": 2,\r\n  \"shipDate\": \"2024-03-11T05:27:59.163Z\",\r\n  \"status\": \"sold\",\r\n  \"complete\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/store/order",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"store",
+								"order"
+							]
+						},
+						"description": "Place an order for a pet"
+					},
+					"response": []
+				},
+				{
+					"name": "Order by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/store/order/{{orderId}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"store",
+								"order",
+								"{{orderId}}"
+							]
+						},
+						"description": "Find Purchase order by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/store/order/{{orderId}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"store",
+								"order",
+								"{{orderId}}"
+							]
+						},
+						"description": "Delete purchase order by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Inventory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/store/inventory",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"store",
+								"inventory"
+							]
+						},
+						"description": "Returns pet inventories by status"
+					},
+					"response": []
+				}
+			],
+			"description": "Access to Petstore Orders"
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Create Users With Array Input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"username\", \"yasmine123\");\r",
+									"\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 0,\r\n    \"username\": \"yasmine123\",\r\n    \"firstName\": \"Yasmine\",\r\n    \"lastName\": \"Ahmed\",\r\n    \"email\": \"yasmine@gmail.com\",\r\n    \"password\": \"Yaso.123\",\r\n    \"phone\": \"01025647896\",\r\n    \"userStatus\": 0\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/user/createWithArray",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"user",
+								"createWithArray"
+							]
+						},
+						"description": "Creates list of users with given input array"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Users With List Input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": 0,\r\n        \"username\": \"yasmine123\"\r\n        ,\"firstName\": \"yasmine\"\r\n        ,\"lastName\": \"ahmed\"\r\n        ,\"email\": \"yasmine@gmail.com\"\r\n        ,\"password\": \"kkkk\"\r\n        ,\"phone\": \"01025987355\"\r\n        ,\"userStatus\": 1\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/user/createWithList",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"user",
+								"createWithList"
+							]
+						},
+						"description": "Creates list of users with given input list"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Username",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/user/{{username}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"user",
+								"{{username}}"
+							]
+						},
+						"description": "Get user by user name"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"username\", \"youmna123\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"username\": \"youmna123\"\r\n    ,\"firstName\": \"youmna\"\r\n    ,\"lastName\": \"ahmed\"\r\n    ,\"email\": \"youmna@gmail.com\"\r\n    ,\"password\": \"llll\"\r\n    ,\"phone\": \"01023654789\"\r\n    ,\"userStatus\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/user/{{username}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"user",
+								"{{username}}"
+							]
+						},
+						"description": "update user's information"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/user/{{username}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"user",
+								"{{username}}"
+							]
+						},
+						"description": "Delete user in array"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Login User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/user/login?{{username}}&{{password}}",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"user",
+								"login"
+							],
+							"query": [
+								{
+									"key": "{{username}}",
+									"value": null
+								},
+								{
+									"key": "{{password}}",
+									"value": null
+								}
+							]
+						},
+						"description": "Logs user into the system"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Logout User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Petstore}}/user/logout",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						},
+						"description": "Logs out current logged in user session"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"username\": \"mostafa249\",\r\n    \"firstName\": \"mostafa\",\r\n    \"lastName\": \"ahmed\",\r\n    \"email\": \"mostafa@gmail.com\",\r\n    \"password\": \"mmmm\",\r\n    \"phone\": \"01025647854\"\r\n    ,\"userStatus\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Petstore}}/user",
+							"host": [
+								"{{Petstore}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "create user in system"
+					},
+					"response": []
+				}
+			],
+			"description": "Operations about user"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code  is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 1400ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(1400);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Pet ID",
+			"value": 220,
+			"type": "string"
+		},
+		{
+			"key": "orderId",
+			"value": "550",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "youmna123"
+		},
+		{
+			"key": "password",
+			"value": "llll",
+			"type": "string"
+		},
+		{
+			"key": "upload image",
+			"value": [
+				"C:\\Users\\CompuCloud\\Pictures\\4.png"
+			]
+		},
+		{
+			"key": "Petstore",
+			"value": "https://petstore.swagger.io/v2",
+			"type": "string"
+		}
+	]
+}
