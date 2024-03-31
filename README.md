@@ -1,6 +1,5 @@
 # PetStore_Postman_API_Testing
-Discriptions: Comprehensive testing of the PetStore API endpoints for managing a fictional online store.
-Endpoints: GET, POST, PUT, DELETE for products management.
+Comprehensive testing of the PetStore API endpoints for managing a fictional online store and Endpoints consist GET, POST, PUT, DELETE for products management.
 
 ### Project Overview
 We've developed a comprehensive API manual for testing the functionalities of a fictional online store using Postman and Newman.
